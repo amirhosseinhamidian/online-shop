@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
-
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Shop } from './pages/shop/Shop';
+import { Cart } from './pages/cart/Cart';
+import { Nav } from './components/Nav';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ShopContextProvider } from './context/shopContext';
 function App() {
+  const client = new QueryClient({defaultOptions : {
+    queries : {refetchOnWindowFocus : false},
+    mutations : {}
+  }})
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <QueryClientProvider client={client}>
+        <ShopContextProvider>
+          <Router>
+            <Nav />
+            <Routes>
+              <Route path='/' element={<Shop />}/>
+              <Route path='/cart' element={<Cart />}/>
+            </Routes>
+          </Router>
+          </ShopContextProvider>
+        </QueryClientProvider>
+      
+        
     </div>
   );
 }
