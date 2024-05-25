@@ -1,6 +1,6 @@
 import React from "react"
 import { Product } from "./product"
-import { useProducts } from "../../hooks/useProduct"
+import { useProducts } from "../../hook/useProduct"
 
 
 export const Shop =() => {
